@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        // Hi
+        // Hi Carter :) I <3 u larrimore likes poop
         ?>
     </body>
 </html>
