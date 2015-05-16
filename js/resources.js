@@ -7,6 +7,7 @@ game.resources = [
         {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
         {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
         {name: "player", type:"image", src: "data/img/hero.png"},
+        {name: "creep1", type:"image", src: "data/img/normalzombie.png"},
         {name: "title-screen", type: "image", src: "data/img/city.jpg"},
 
 	/* Atlases 

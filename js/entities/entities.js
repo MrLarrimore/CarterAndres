@@ -1,33 +1,144 @@
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
-            image: "player",
-            width: 64,
-            height: 64,
-            spriteidth: "64",
-            spriteheight: "64",
-            getShape: function() {
-                return(new me.Rect(0, 0, 64, 64)).toPolygon();
-                
-                
-            }
-        }]);
-    
+                image: "player",
+                width: 64,
+                height: 64,
+                spriteidth: "64",
+                spriteheight: "64",
+                getShape: function() {
+                    return(new me.Rect(0, 0, 64, 64)).toPolygon();
+
+
+                }
+            }]);
+
         this.body.setVelocity(5, 20);
-    
+
+        this.renderable.addAnimation("idle", [78]);
+        this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
+
+        this.renderable.setCurrentAnimation("idle");
+
     },
-    
     update: function(delta) {
-        if(me.input.isKeyPressed("right")) {
-                //adds to the positoin of my x by adding the velocity defined above in
-                //setVelocity() and multiplying it by me.timer.tick
-                //me.timer.tick makes the movement look smooth
-            this.body.vel.x += this.body.accel.x * me.timer.tick;
-        }else {
-            this.body.vel.x = 0;
-        }
+        this.checkIfKeyPressesAndMove();
+        this.setAnimation();
+
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
         this.body.update(delta);
+        this._super(me.Entity, "update", [delta]);
+        return true;
+    },
+    //checks if a key is pressed to move
+    checkIfKeyPressesAndMove: function() {
+        if (me.input.isKeyPressed("right")) {
+            this.moveRight();
+        } else if (me.input.isKeyPressed("left")) {
+            this.moveLeft();
+        } else {
+            this.body.vel.x = 0;
+        }
+        if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
+            this.jump();
+        } else if (this.body.vel.y === 0) {
+            this.jumping = false;
+        }
+    },
+    moveRight: function() {
+        //adds to the position of my x by the velocity defined above in
+        //set velocity() and multiplying it by me.timer.tick.
+        //me.timer.tick makes the movement look smooth
+        this.body.vel.x += this.body.accel.x * me.timer.tick;
+        this.flipX(true);
+        this.facing = "right";
+    },
+    //if the left key is pressed he moves left
+    moveLeft: function() {
+        this.facing = "left";
+        this.body.vel.x -= this.body.accel.x * me.timer.tick;
+        this.flipX(false);
+    },
+    //if the left key is pressed he moves left
+    jump: function() {
+        this.jumping = true;
+        this.body.vel.y -= this.body.accel.y * me.timer.tick;
+
+    },
+    setAnimation: function() {
+        if (this.attacking) {
+            if (!this.renderable.isCurrentAnimation("attack")) {
+                //sets the current animation to attack and then idle after it is done
+                this.renderable.setCurrentAnimation("attack", "idle");
+                //makes it so that the next time we start this sequence we 
+                //begin from the first animation not wherever we left off
+                //when we switched to another animation
+                this.renderable.setAnimationFrame();
+            }
+        }
+        //if i am perfectly still then it sets the animation to idle
+        else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
+            //if the current animation is walk it sets the animation to walk
+            if (!this.renderable.isCurrentAnimation("walk")) {
+                this.renderable.setCurrentAnimation("walk");
+            }
+        } else if (!this.renderable.isCurrentAnimation("attack")) {
+            this.renderable.setCurrentAnimation("idle");
+        }
+    },
+});
+
+game.EnemyCreep = me.Entity.extend({
+    init: function(x, y, settings) {
+        this._super(me.Entity, 'init', [x, y, {
+                image: "creep1",
+                width: 64,
+                height: 64,
+                spritewidth: "64",
+                spriteheight: "64",
+                getShape: function() {
+                    return (new me.Rect(0, 0, 64, 64)).toPolygon();
+                }
+            }]);
+
+        this.health = 10;
+        this.alwaysUpdate = true;
+
+        this.body.setVelocity(3, 20);
+
+        this.type = "EnemyCreep";
+
+        this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
+        this.renderable.setCurrentAnimation("walk");
+
+    },
+    update: function(delta) {
+        this.body.vel.x -= this.body.accel.x * me.timer.tick;
+        
+        this.body.update(delta);
+        this._super(me.Entity, "update", [delta]);
+        
+        return true;
+    }
+});
+
+game.GameManager = Object.extend({
+    init: function(x, y, settings) {
+        this.now = new Date().getTime();
+        this.lastCreep = new Date().getTime();
+        
+        this.alwaysUpdate = true;
+    },
+    
+    update: function() {
+        this.now = new Date().getTime();
+        
+        if(Math.round(this.now/1000)%10 ===0  && (this.now - this.lastCreep >= 1000)) {
+                this.lastCreep = this.now;
+                var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
+                me.game.world.addChild(creepe, 5);
+        }
+        
         return true;
     }
 });
