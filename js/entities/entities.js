@@ -110,16 +110,45 @@ game.EnemyCreep = me.Entity.extend({
 
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
         this.renderable.setCurrentAnimation("walk");
+        
 
     },
     update: function(delta) {
         this.body.vel.x -= this.body.accel.x * me.timer.tick;
         
+         me.collision.check(this, true, this.collideHandler.bind(this), true);
+
+        
         this.body.update(delta);
         this._super(me.Entity, "update", [delta]);
         
         return true;
-    }
+    },
+    
+     collideHandler: function(response) {
+            if (response.b.type === 'PlayerEntity') {
+            var xdif = this.pos.x - response.b.pos.x;
+
+            this.attacking = true;
+            // this.lastAttacking = this, now;
+
+            //keeps moving the creep to the right to maintain its position
+            if (xdif > 0) {
+                //keeps moving the creep to the right to maintain its position
+                this.pos.x = this.pos.x + 1;
+                this.body.vel.x = 0;
+            }
+            //checks that it has at least been  1 second before the creep hits something
+            if ((this.now - this.lastHit >= 1000 && xdif > 0)) {
+                //updates the last hit timer
+                this.lastHit = this.now;
+                //makes the player call the lose health function and passes a
+                //damage of 1
+                response.b.loseHealth(game.data.enemyCreepAttack);
+            }
+
+        }
+        }
 });
 
 game.GameManager = Object.extend({
@@ -130,15 +159,14 @@ game.GameManager = Object.extend({
         this.alwaysUpdate = true;
     },
     
-    update: function() {
+    update: function(x, y) {
         this.now = new Date().getTime();
         
-        if(Math.round(this.now/1000)%10 ===0  && (this.now - this.lastCreep >= 1000)) {
+        if(Math.round(this.now/1000)%10 ===0  && (this.now - this.lastCreep >= 300)) {
                 this.lastCreep = this.now;
-                var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
+                var creepe = me.pool.pull("EnemyCreep", game.data.player.pos.x + 3000, 5000, {});
                 me.game.world.addChild(creepe, 5);
         }
-        
         return true;
     }
 });
