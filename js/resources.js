@@ -9,6 +9,8 @@ game.resources = [
         {name: "player", type:"image", src: "data/img/hero.png"},
         {name: "creep1", type:"image", src: "data/img/normalzombie.png"},
         {name: "title-screen", type: "image", src: "data/img/city.jpg"},
+        {name: "new-screen", type: "image", src: "data/img/loadpic.png"},
+        {name: "load-screen", type: "image", src: "data/img/title.png"},
 
 	/* Atlases 
 	 * @example

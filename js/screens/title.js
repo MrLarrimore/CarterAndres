@@ -31,7 +31,8 @@ game.TitleScreen = me.ScreenObject.extend({
                 me.input.releasePointerEvent('pointerdown', game.data.option2);
                 me.input.releasePointerEvent('pointerdown', this);
                 //changes game state to NEW
-                me.state.change(me.state.PLAY);
+                me.state.change(me.state.NEW);
+               
             }
         })));
 
@@ -60,7 +61,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 me.input.releasePointerEvent('pointerdown', game.data.option1);
                 me.input.releasePointerEvent('pointerdown', this);
                 //changes game state to LOAD
-                me.state.change(me.state.PLAY);
+                me.state.change(me.state.LOAD);
 
             }
         }));
