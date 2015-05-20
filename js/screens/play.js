@@ -2,14 +2,14 @@ game.PlayScreen = me.ScreenObject.extend({
 	/**
 	 *  action to perform on state change
 	 */
-	onResetEvent: function() {
+	onResetEvent: function(x, y) {
 		// reset the score
 		game.data.score = 0;
                 
                 me.levelDirector.loadLevel("level1");
                 
-                var player = me.pool.pull("player", 0, 420, {});
-                me.game.world.addChild(player, 5);
+                game.data.player = me.pool.pull("player", x, y, {});
+                me.game.world.addChild(game.data.player, 800000);
                 
                 var gamemanager = me.pool.pull("GameManager", 0, 0, {});
                 me.game.world.addChild(gamemanager, 0);
@@ -17,6 +17,7 @@ game.PlayScreen = me.ScreenObject.extend({
                 me.input.bindKey(me.input.KEY.RIGHT, "right");
                 me.input.bindKey(me.input.KEY.LEFT, "left");
                 me.input.bindKey(me.input.KEY.LEFT, "left");
+                me.input.bindKey(me.input.KEY.SPACE, "jump");
 
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
