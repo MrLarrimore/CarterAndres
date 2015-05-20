@@ -31,3 +31,18 @@ body {
 	image-rendering: optimize-contrast;
 	-ms-interpolation-mode: nearest-neighbor;
 }
+/*my input style*/ 
+#input{
+    display: block;
+    text-align: center;
+    visibility: hidden;
+}
+/*my load style*/
+#load{
+    visibility: hidden;
+}
+/*my register style*/
+#register{
+    visibility: hidden;
+}
+
