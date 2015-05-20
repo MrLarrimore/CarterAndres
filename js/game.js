@@ -33,6 +33,9 @@ var game = {
 		alert("Your browser does not support HTML5 canvas.");
 		return;
 	}
+        
+        me.state.LOAD = 113;
+        me.state.NEW = 114;
 
 	// add "#debug" to the URL to enable the debug Panel
 	if (document.location.hash === "#debug") {
@@ -62,6 +65,9 @@ var game = {
             
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
+                me.state.set(me.state.NEW, new game.NewScreen());
+                me.state.set(me.state.LOAD, new game.LoadScreen());
+                
 
 		// Start the game.
 		me.state.change(me.state.MENU);

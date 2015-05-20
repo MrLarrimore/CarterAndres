@@ -1,0 +1,56 @@
+
+body{
+    background-image:url('http://www.thegroundmag.com/wp-content/uploads/EC_Dark_Robins_Egg_9177_V1.jpg');
+
+}
+/*body style*/
+a {
+    color: navy;
+    font-size: 15px;
+    background-color: lightskyblue;
+}
+/*a style*/
+p {
+    color: navy;
+    font-family: monospace;
+    font-size: 20px;
+    padding-left: 25px;
+}
+/*p style*/
+.nav nav-tabs {
+    margin-top: 15px;
+    background-color: black;
+}
+/*.nav nav-tabs style*/
+button:hover {
+    background-color: lightskyblue;
+}
+/*button style*/
+#blog nav {
+    text-align: center;
+    padding-left: 35%;
+}
+/*#blog nav style*/
+.jumbotron{
+    text-align: center;
+    padding-right: 100px;
+}
+/*jumbotron style*/
+nav {
+    padding-left: 35%;
+}
+/*nav style*/
+h2 {
+    padding-left: 25px;
+}
+//h2 style
+img{
+    height: 600px;
+    width: 600px;
+    padding-right: 70px;
+}
+/*image style*/
+button {
+    height: 25px;
+}
+/*button style*/
