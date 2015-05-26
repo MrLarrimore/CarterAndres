@@ -8,10 +8,12 @@ game.resources = [
         {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
         {name: "player", type:"image", src: "data/img/hero.png"},
         {name: "creep1", type:"image", src: "data/img/normalzombie.png"},
-        {name: "title-screen", type: "image", src: "data/img/city.jpg"},
-        {name: "new-screen", type: "image", src: "data/img/loadpic.png"},
-        {name: "load-screen", type: "image", src: "data/img/title.png"},
+        {name: "title-screen", type: "image", src: "data/img/zamb.jpg"},
+        {name: "new-screen", type: "image", src: "data/img/fire.jpg"},
+        {name: "load-screen", type: "image", src: "data/img/zam_1.jpg"},
         {name: "city", type: "image", src: "data/img/city.jpg"},
+        {name: "main-screen", type: "image", src: "data/img/cay.jpg"},
+        {name: "control-screen", type: "image", src: "data/img/title.png"},
 
 	/* Atlases 
 	 * @example
