@@ -36,6 +36,8 @@ var game = {
         
         me.state.LOAD = 113;
         me.state.NEW = 114;
+        me.state.MAIN = 115;
+        me.state.CON = 116;
 
 	// add "#debug" to the URL to enable the debug Panel
 	if (document.location.hash === "#debug") {
@@ -67,6 +69,8 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
                 me.state.set(me.state.NEW, new game.NewScreen());
                 me.state.set(me.state.LOAD, new game.LoadScreen());
+                me.state.set(me.state.MAIN, new game.MainScreen());
+                me.state.set(me.state.CON, new game.ControlScreen());
                 
 
 		// Start the game.

@@ -16,12 +16,12 @@ game.NewScreen = me.ScreenObject.extend({
                 //where text is located
                 this._super(me.Renderable, 'init', [10, 10, 300, 50]);
                 //how text is styled
-                this.font = new me.Font("impact", 26, "green");
+                this.font = new me.Font("impact", 26, "orangered");
             },
             //my draw function
             draw: function(renderer) {
                 //my text
-                this.font.draw(renderer.getContext(), "Pick A Username And Password", this.pos.x, this.pos.y);
+                this.font.draw(renderer.getContext(), "Pick a user name and password?", this.pos.x, this.pos.y);
             },
             //my update function 
             update: function(dt) {
