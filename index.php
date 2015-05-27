@@ -57,6 +57,8 @@ require_once("php/controller/create-db.php");
         <script type="text/javascript" src="js/screens/LoadUser.js"></script>
         <script type="text/javascript" src="js/screens/main.js"></script>
         <script type="text/javascript" src="js/screens/control.js"></script>
+        <script type="text/javascript" src="js/entities/SpendGold.js"></script>
+        
         <!-- /build -->
         <!-- Bootstrap & Mobile optimization tricks -->
         <script type="text/javascript">
