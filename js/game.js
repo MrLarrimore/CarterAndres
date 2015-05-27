@@ -38,6 +38,7 @@ var game = {
         me.state.NEW = 114;
         me.state.MAIN = 115;
         me.state.CON = 116;
+        
 
 	// add "#debug" to the URL to enable the debug Panel
 	if (document.location.hash === "#debug") {
@@ -64,6 +65,7 @@ var game = {
                 me.pool.register("player", game.PlayerEntity, true);
                 me.pool.register("EnemyCreep", game.EnemyCreep, true);
                 me.pool.register("GameManager", game.GameManager);
+                me.pool.register("SpendGold", game.SpendGold);
             
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
@@ -71,6 +73,7 @@ var game = {
                 me.state.set(me.state.LOAD, new game.LoadScreen());
                 me.state.set(me.state.MAIN, new game.MainScreen());
                 me.state.set(me.state.CON, new game.ControlScreen());
+                
                 
 
 		// Start the game.

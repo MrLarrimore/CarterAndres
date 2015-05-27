@@ -14,6 +14,8 @@ game.resources = [
         {name: "city", type: "image", src: "data/img/city.jpg"},
         {name: "main-screen", type: "image", src: "data/img/cay.jpg"},
         {name: "control-screen", type: "image", src: "data/img/title.png"},
+        {name: "gold-screen", type: "image", src: "data/img/game_over.png"},
+        
 
 	/* Atlases 
 	 * @example
