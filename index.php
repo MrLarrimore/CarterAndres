@@ -56,6 +56,10 @@ require_once("php/controller/create-db.php");
         <script type="text/javascript" src="js/screens/play.js"></script>
         <script type="text/javascript" src="js/screens/NewUser.js"></script>
         <script type="text/javascript" src="js/screens/LoadUser.js"></script>
+        <script type="text/javascript" src="js/screens/main.js"></script>
+        <script type="text/javascript" src="js/screens/control.js"></script>
+        <script type="text/javascript" src="js/entities/SpendGold.js"></script>
+        
         <!-- /build -->
         <!-- Bootstrap & Mobile optimization tricks -->
         <script type="text/javascript">
@@ -104,7 +108,7 @@ require_once("php/controller/create-db.php");
                         .success(function(response) {
                             if (response === "true") {
                                 //changes state to play
-                                me.state.change(me.state.PLAY);
+                                me.state.change(me.state.MAIN);
                             } else {
                                 //alert if success
                                 alert(response);
@@ -138,7 +142,7 @@ require_once("php/controller/create-db.php");
                                 //jquery.parseJSON data
                                 var data = jQuery.parseJSON(response);
                                 
-                                me.state.change(me.state.PLAY);
+                                me.state.change(me.state.MAIN);
                             }
                         })
                         //my fail function
