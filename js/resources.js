@@ -12,6 +12,7 @@ game.resources = [
         {name: "new-screen", type: "image", src: "data/img/loadpic.png"},
         {name: "load-screen", type: "image", src: "data/img/title.png"},
         {name: "city", type: "image", src: "data/img/city.jpg"},
+        {name: "bullet", type: "image", src: "data/img/fireball.png"},
 
 	/* Atlases 
 	 * @example
