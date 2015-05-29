@@ -1,4 +1,4 @@
-//my class for spend exp that is a screen
+//my class for my main screen 
 game.MainScreen = me.ScreenObject.extend({
     /**	
      *  action to perform on state change
@@ -27,7 +27,7 @@ game.MainScreen = me.ScreenObject.extend({
             newGame: function() {
                 me.input.releasePointerEvent('pointerdown', game.data.option2);
                 me.input.releasePointerEvent('pointerdown', this);
-                //changes game state to NEW
+                //changes game state to PLAY
                 me.state.change(me.state.PLAY);
                
             }
@@ -46,13 +46,13 @@ game.MainScreen = me.ScreenObject.extend({
             },
             //my draw function
             draw: function(renderer) {
-                this.font.draw(renderer.getContext(), "Weapons and Upgrades", this.pos.x, this.pos.y);
+                this.font.draw(renderer.getContext(), "Weapons and Controls", this.pos.x, this.pos.y);
             },
             //my update function
             update: function(dt) {
                 return true;
             },
-            //my  new game function
+            //my new game function
             newGame: function() {
                 me.input.releasePointerEvent('pointerdown', game.data.option1);
                 me.input.releasePointerEvent('pointerdown', this);

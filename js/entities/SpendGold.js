@@ -21,7 +21,7 @@ game.SpendGold = Object.extend({
                 this.stopBuying();
             }
         }
-        //ofr check buy keys function
+        //for check buy keys function
         this.checkBuyKeys();
 
         return true;
@@ -38,29 +38,26 @@ game.SpendGold = Object.extend({
         me.game.world.addChild(game.data.buyscreen, 34);
         game.data.player.body.setVelocity(0, 0);
         //binding my keys (F1-F6)
-        me.input.bindKey(me.input.KEY.F1, "F1", true);
-        me.input.bindKey(me.input.KEY.F2, "F2", true);
-        me.input.bindKey(me.input.KEY.F3, "F3", true);
-        me.input.bindKey(me.input.KEY.F4, "F4", true);
-        me.input.bindKey(me.input.KEY.F5, "F5", true);
-        me.input.bindKey(me.input.KEY.F6, "F6", true);
+        
         this.addText();
     },
     //my set buy text function
     addText: function() {
-        me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('gold-screen')), 100); // TODO
+    
+        
      me.game.world.addChild(new (me.Renderable.extend({
             //my init function for text
             init: function() {
                 //where text is located
-                this._super(me.Renderable, 'init', [10, 10, 300, 50]);
+                this._super(me.Renderable, 'init', [game.data.pausePos.x, game.data.pausePos.y, 300, 50]);
                 //how text is styled
                 this.font = new me.Font("impact", 46, "red");
+                this.updateWhenPaused = true;
                 me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
             },
             //my draw function
             draw: function(renderer) {
-                this.font.draw(renderer.getContext(), "Main Menu", this.pos.x, this.pos.y);
+                this.font.draw(renderer.getContext(), "", this.pos.x, this.pos.y);
             },
             //my update function
             update: function(dt) {
@@ -74,7 +71,7 @@ game.SpendGold = Object.extend({
                 me.state.change(me.state.MAIN);
                
             }
-        })), 101);
+        })), 34);
         //subscribing to event
         this.handler = me.event.subscribe(me.event.KEYDOWN, function(action, keyCode, edge) {
        
@@ -89,13 +86,12 @@ game.SpendGold = Object.extend({
         me.state.resume(me.state.PLAY);
         game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
         me.game.world.removeChild(game.data.buyscreen, 34);
-        //unbinding my keys
+        
        
-       // me.game.world.removeChild(game.data.buytext);
     },
     //my check buy keys function
     checkBuyKeys: function() {
-        //checking keys F1 - F6
+        
        
         
     },
@@ -105,7 +101,7 @@ game.SpendGold = Object.extend({
     },
     //my make purchase function
     makePurchase: function(skill) {
-        //make purcahse for skills 1 - 6
+      
        
 
     }

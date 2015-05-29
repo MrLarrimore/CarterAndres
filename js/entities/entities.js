@@ -1,3 +1,4 @@
+//my player entity init function
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
@@ -12,24 +13,29 @@ game.PlayerEntity = me.Entity.extend({
 
                 }
             }]);
+        //setting this.type to player entity 
         this.type = "PlayerEntity";
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 20);
         this.dead = false;
-
+        
+                //setting annimation
         this.renderable.addAnimation("idle", [78]);
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
-
+        
+        //setting current animation
         this.renderable.setCurrentAnimation("idle");
 
     },
+    //my update function
     update: function(delta) {
         this.now = new Date().getTime();
 
         if (this.health <= 0) {
             this.dead = true;
         }
-
+        
+        
         this.checkIfKeyPressesAndMove();
         this.setAnimation();
         me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -41,19 +47,23 @@ game.PlayerEntity = me.Entity.extend({
     },
     //checks if a key is pressed to move
     checkIfKeyPressesAndMove: function() {
+        //checking moving right
         if (me.input.isKeyPressed("right")) {
             this.moveRight();
+            //checking if move left
         } else if (me.input.isKeyPressed("left")) {
             this.moveLeft();
         } else {
             this.body.vel.x = 0;
         }
+        //checking jump
         if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
             this.jump();
         } else if (this.body.vel.y === 0) {
             this.jumping = false;
         }
     },
+    //my move right function
     moveRight: function() {
         //adds to the position of my x by the velocity defined above in
         //set velocity() and multiplying it by me.timer.tick.
@@ -62,18 +72,19 @@ game.PlayerEntity = me.Entity.extend({
         this.flipX(true);
         this.facing = "right";
     },
-    //if the left key is pressed he moves left
+    //my  move left function
     moveLeft: function() {
         this.facing = "left";
         this.body.vel.x -= this.body.accel.x * me.timer.tick;
         this.flipX(false);
     },
-    //if the left key is pressed he moves left
+    //my jump function
     jump: function() {
         this.jumping = true;
         this.body.vel.y -= this.body.accel.y * me.timer.tick;
 
     },
+    //my set animation function
     setAnimation: function() {
         if (this.attacking) {
             if (!this.renderable.isCurrentAnimation("attack")) {
@@ -95,17 +106,18 @@ game.PlayerEntity = me.Entity.extend({
             this.renderable.setCurrentAnimation("idle");
         }
     },
-    //loses health
+    //my lose health function
     loseHealth: function(damage) {
         this.health = this.health - damage;
         console.log(this.health);
     },
-    //handles collisions with other entities
+    //my collide handler function
     collideHandler: function(response) {
         if (response.b.type === 'EnemyCreep') {
             this.collideWithEnemyCreep(response);
         }
     },
+    //my collide with creep function 
     collideWithEnemyCreep: function(response) {
         var xdif = this.pos.x - response.b.pos.x;
         var ydif = this.pos.y - response.b.pos.y;
@@ -117,6 +129,7 @@ game.PlayerEntity = me.Entity.extend({
         //}
 
     },
+    //my stop movement function
     stopMovement: function(xdif) {
         if (xdif > 0) {
             if (this.facing === "left") {
@@ -130,6 +143,7 @@ game.PlayerEntity = me.Entity.extend({
     }
 });
 
+//my enemy init function
 game.EnemyCreep = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
@@ -155,11 +169,13 @@ game.EnemyCreep = me.Entity.extend({
 
         this.type = "EnemyCreep";
 
+        //adds animation
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
         this.renderable.setCurrentAnimation("walk");
 
 
     },
+    //my update function
     update: function(delta) {
         this.now = new Date().getTime();
         this.body.vel.x -= this.body.accel.x * me.timer.tick;
@@ -172,6 +188,7 @@ game.EnemyCreep = me.Entity.extend({
 
         return true;
     },
+    //my collide functiion
     collideHandler: function(response) {
         if (response.b.type === 'PlayerEntity') {
             var xdif = this.pos.x - response.b.pos.x;
@@ -198,6 +215,7 @@ game.EnemyCreep = me.Entity.extend({
     }
 });
 
+//my game manager init function
 game.GameManager = Object.extend({
     init: function(x, y, settings) {
         this.now = new Date().getTime();
@@ -205,6 +223,7 @@ game.GameManager = Object.extend({
 
         this.alwaysUpdate = true;
     },
+    //my update function
     update: function() {
         this.now = new Date().getTime();
         
