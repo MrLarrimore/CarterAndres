@@ -2,17 +2,18 @@ game.shootGun = me.Entity.extend({
     init: function(x, y, settings, facing) {
         this._super(me.Entity, 'init', [x, y, {
                 image: "bullet",
-                width: 48,
-                height: 48,
-                spritewidth: "48",
-                spriteheight: "48",
+                width: 45,
+                height: 45,
+                spritewidth: "45",
+                spriteheight: "45",
                 getShape: function() {
-                    return (new me.Rect(0, 0, 48, 48)).toPolygon();
+                    return (new me.Rect(0, 0, 45, 45)).toPolygon();
                 }
             }]);
+        this.attack = game.data.bulletDamage;
         this.alwaysUpdate = true;
         this.body.setVelocity(8, 0);
-        this.attack = game.data.playerAttack;
+       // this.attack = game.data.enemyCreepAttack;
         this.type = "bullet";
         this.facing - facing;
     },
@@ -34,7 +35,7 @@ game.shootGun = me.Entity.extend({
      collideHandler: function(response) {
         if (response.b.type === 'EnemyCreep') {
             this.body.vel.x = 0;
-                response.b.loseHealth(this.attack);
+                response.b.loseHealth(attack);
                 me.game.world.removeChild(this);
             }
         }

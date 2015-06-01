@@ -1,5 +1,4 @@
 game.PlayScreen = me.ScreenObject.extend({
-<<<<<<< HEAD
 	/**
 	 *  action to perform on state change
 	 */
@@ -14,49 +13,12 @@ game.PlayScreen = me.ScreenObject.extend({
                 
                 var gamemanager = me.pool.pull("GameManager", 0, 0, {});
                 me.game.world.addChild(gamemanager, 0);
-                
-                me.input.bindKey(me.input.KEY.RIGHT, "right");
-                me.input.bindKey(me.input.KEY.LEFT, "left");
-                me.input.bindKey(me.input.KEY.LEFT, "left");
-                me.input.bindKey(me.input.KEY.SPACE, "jump");
-=======
-    /**
-     *  action to perform on state change
-     */
-    onResetEvent: function(x, y) {
-        // reset the score
-        game.data.score = 0;
->>>>>>> upstream/master
-
-        me.levelDirector.loadLevel("level1");
-
-        me.state.current().resetPlayer(0, 420);
-
-<<<<<<< HEAD
-	/**
-	 *  action to perform when leaving this screen (state change)
-	 */
-	onDestroyEvent: function() {
-		// remove the HUD from the game world
-		me.game.world.removeChild(this.HUD);
-	},
-        
-          resetPlayer: function(x, y) {
-              console.log("resetting");
-                game.data.player = me.pool.pull("player", x, y, {});
-                me.game.world.addChild(game.data.player, 10);
-        }
-=======
-        game.data.player = me.pool.pull("player", x, y, {});
-        me.game.world.addChild(game.data.player, 10);
-
-        var gamemanager = me.pool.pull("GameManager", 0, 0, {});
-        me.game.world.addChild(gamemanager, 0);
 
         var spendGold = me.pool.pull("SpendGold", 0, 420, {});
         me.game.world.addChild(spendGold, 5);
 
         me.input.bindKey(me.input.KEY.B, "buy");
+        me.input.bindKey(me.input.KEY.A, "shoot");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.LEFT, "left");
@@ -77,5 +39,4 @@ game.PlayScreen = me.ScreenObject.extend({
         game.data.player = me.pool.pull("player", x, y, {});
         me.game.world.addChild(game.data.player, 10);
     }
->>>>>>> upstream/master
 });

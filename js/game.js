@@ -10,17 +10,18 @@ var game = {
         option2: "",
         enemyCreepHealth: 10,
         
-        playerHealth: 50,
+        playerHealth: 35,
         enemyCreepAttack: 1,
         
-        playerAttack: 1,
+        bulletDamage: 1,
         playerAttackTimer: 1000,
         enemyCreepAttackTimer: 1000,
         playerMoveSpeed: 5,
         creepMoveSpeed: 5,
         gameTimerManager: "",
         heroDeathManager: "",
-        bulletTimer: 1,
+        bulletTimer: 0.2,
+        bullet: 0,
         player: "",
         win: ""
 
@@ -66,11 +67,8 @@ var game = {
                 me.pool.register("player", game.PlayerEntity, true);
                 me.pool.register("EnemyCreep", game.EnemyCreep, true);
                 me.pool.register("GameManager", game.GameManager);
-<<<<<<< HEAD
                 me.pool.register("bullet", game.shootGun);
-=======
                 me.pool.register("SpendGold", game.SpendGold);
->>>>>>> upstream/master
             
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());

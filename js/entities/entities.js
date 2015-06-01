@@ -15,21 +15,21 @@ game.PlayerEntity = me.Entity.extend({
         this.type = "PlayerEntity";
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 20);
+        this.setPlayerTimers();
         this.dead = false;
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
         this.alwaysUpdate = true;
-        this.renderable.addAnimation("idle", [69]);
+        this.renderable.addAnimation("idle", [95]);
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
-
-        this.renderable.setCurrentAnimation("idle");
+        this.renderable.addAnimation("shoot", [95]),
+                this.renderable.setCurrentAnimation("idle");
 
     },
-    
     setPlayerTimers: function() {
+        this.now = new Date().getTime();
         this.lastBullet = this.now;
+         
     },
-    
-    
     update: function(delta) {
         this.now = new Date().getTime();
         if (this.health <= 0) {
@@ -40,7 +40,7 @@ game.PlayerEntity = me.Entity.extend({
         this.setAnimation();
         me.collision.check(this, true, this.collideHandler.bind(this), true);
 
-        
+
         this.body.update(delta);
         this._super(me.Entity, "update", [delta]);
         return true;
@@ -53,11 +53,18 @@ game.PlayerEntity = me.Entity.extend({
             this.moveLeft();
         } else {
             this.body.vel.x = 0;
+
         }
         if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
             this.jump();
         } else if (this.body.vel.y === 0) {
             this.jumping = false;
+        }
+
+        if (me.input.isKeyPressed("shoot")) {
+            this.shootGun();
+            this.renderable.setCurrentAnimation("shoot");
+            
         }
     },
     moveRight: function() {
@@ -80,20 +87,20 @@ game.PlayerEntity = me.Entity.extend({
         this.body.vel.y -= this.body.accel.y * me.timer.tick;
 
     },
-    
     shootGun: function() {
-        if((this.now-this.lastBullet) >= game.data.bulletTimer * 1000) {
-        this.lastBullet = this.now;
+        console.log(this.now + " " + this.lastBullet + " " + game.data.bulletTimer);
+        if ((this.now - this.lastBullet) >= game.data.bulletTimer * 1000) {
+            this.lastBullet = this.now;
             var bullet = me.pool.pull("bullet", this.pos.x, this.pos.y, {}, this.facing);
             me.game.world.addChild(bullet, 10);
+            console.log("ergergerg");
         }
     },
-    
     setAnimation: function() {
         if (this.attacking) {
-            if (!this.renderable.isCurrentAnimation("attack")) {
+            if (!this.renderable.isCurrentAnimation("shoot")) {
                 //sets the current animation to attack and then idle after it is done
-                this.renderable.setCurrentAnimation("attack", "idle");
+                this.renderable.setCurrentAnimation("shoot", "idle");
                 //makes it so that the next time we start this sequence we 
                 //begin from the first animation not wherever we left off
                 //when we switched to another animation
@@ -101,13 +108,19 @@ game.PlayerEntity = me.Entity.extend({
             }
         }
         //if i am perfectly still then it sets the animation to idle
-        else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
+        else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("shoot")) {
             //if the current animation is walk it sets the animation to walk
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else if (!this.renderable.isCurrentAnimation("attack")) {
+        } else if (!this.renderable.isCurrentAnimation("shoot")) {
             this.renderable.setCurrentAnimation("idle");
+            if (this.facing === "right") {
+                this.flipX(false);
+            } else if (this.facing === "left") {
+                this.flipX(true);
+            }
+
         }
     },
     //loses health
@@ -143,6 +156,7 @@ game.PlayerEntity = me.Entity.extend({
             }
         }
     }
+
 });
 
 game.EnemyCreep = me.Entity.extend({
@@ -178,22 +192,22 @@ game.EnemyCreep = me.Entity.extend({
     update: function(delta) {
         this.now = new Date().getTime();
 
-        
-             if (this.pos.x <= game.data.player.pos.x) {
-              this.body.vel.x += this.body.accel.x * me.timer.tick;
-              this.flipX(true);
-          }else{
-                    
-        this.body.vel.x -= this.body.accel.x * me.timer.tick;
-        this.flipX(false);
-                }
 
-me.collision.check(this, true, this.collideHandler.bind(this), true);
-        
-            
+        if (this.pos.x <= game.data.player.pos.x) {
+            this.body.vel.x += this.body.accel.x * me.timer.tick;
+            this.flipX(true);
+        } else {
+
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            this.flipX(false);
+        }
+
+        me.collision.check(this, true, this.collideHandler.bind(this), true);
+
+
         this.body.update(delta);
         this._super(me.Entity, "update", [delta]);
-        
+
         return true;
     },
     collideHandler: function(response) {
@@ -232,11 +246,11 @@ game.GameManager = Object.extend({
     update: function() {
         this.now = new Date().getTime();
 
-                //if the player is dead then it removes the player and restarts him
+        //if the player is dead then it removes the player and restarts him
         if (game.data.player.dead) {
             me.game.world.removeChild(game.data.player);
             me.state.current().resetPlayer(10, 6000);
-            
+
             return true;
         }
 
@@ -244,7 +258,7 @@ game.GameManager = Object.extend({
             this.lastCreep = this.now;
             var creepe = me.pool.pull("EnemyCreep", game.data.player.pos.x + 3000, 6000, {});
             me.game.world.addChild(creepe, 10);
-            
+
         }
         return true;
     }
