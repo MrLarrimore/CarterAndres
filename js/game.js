@@ -1,7 +1,8 @@
 
 /* Game namespace */
 var game = {
-
+    
+        //all of my data
 	// an object where to store game information
 	data : {
 		// score
@@ -36,6 +37,7 @@ var game = {
 		return;
 	}
         
+        //my game states
         me.state.LOAD = 113;
         me.state.NEW = 114;
         me.state.MAIN = 115;
@@ -61,8 +63,9 @@ var game = {
 	// Initialize melonJS and display a loading screen.
 	me.state.change(me.state.LOADING);
 },
-
+    
 	// Run on game resources loaded.
+        //my loaded function
 	"loaded" : function () {
                 me.pool.register("player", game.PlayerEntity, true);
                 me.pool.register("EnemyCreep", game.EnemyCreep, true);
@@ -70,6 +73,7 @@ var game = {
                 me.pool.register("bullet", game.shootGun);
                 me.pool.register("SpendGold", game.SpendGold);
             
+                //my game states
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
                 me.state.set(me.state.NEW, new game.NewScreen());

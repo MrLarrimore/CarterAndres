@@ -12,12 +12,16 @@ game.ControlScreen = me.ScreenObject.extend({
                 //where text is located
                 this._super(me.Renderable, 'init', [10, 10, 300, 50]);
                 //how text is styled
-                this.font = new me.Font("impact", 46, "yellow");
+                this.font = new me.Font("impact", 46, "red");
                 me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
             },
             //my draw function
             draw: function(renderer) {
                 this.font.draw(renderer.getContext(), "Back", this.pos.x, this.pos.y);
+                this.font.draw(renderer.getContext(), "Weapon: ak47", this.pos.x, this.pos.y + 80);
+                this.font.draw(renderer.getContext(), "Move Controls: Arrow Keys To Move Space To Jump ", this.pos.x, this.pos.y + 160);
+                this.font.draw(renderer.getContext(), "Gun Controls: |A| To Shoot ", this.pos.x, this.pos.y + 240);
+                this.font.draw(renderer.getContext(), "Pause: |B| ", this.pos.x, this.pos.y + 320);
             },
             //my update function
             update: function(dt) {
@@ -27,7 +31,7 @@ game.ControlScreen = me.ScreenObject.extend({
             newGame: function() {
                 
                 me.input.releasePointerEvent('pointerdown', this);
-                //changes game state to NEW
+                //changes game state to MAIN
                 me.state.change(me.state.MAIN);
                
             }

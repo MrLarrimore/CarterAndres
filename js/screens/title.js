@@ -1,4 +1,4 @@
-//my class for title screen that is a screen
+//my class for title screen 
 game.TitleScreen = me.ScreenObject.extend({
     /**	
      *  action to perform on state change
@@ -56,7 +56,7 @@ game.TitleScreen = me.ScreenObject.extend({
             update: function(dt) {
                 return true;
             },
-            //my  new game function
+            //my new game function
             newGame: function() {
                 me.input.releasePointerEvent('pointerdown', game.data.option1);
                 me.input.releasePointerEvent('pointerdown', this);

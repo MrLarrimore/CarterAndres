@@ -35,7 +35,7 @@ game.shootGun = me.Entity.extend({
      collideHandler: function(response) {
         if (response.b.type === 'EnemyCreep') {
             this.body.vel.x = 0;
-                response.b.loseHealth(attack);
+                response.b.loseHealth(this.attack);
                 me.game.world.removeChild(this);
             }
         }

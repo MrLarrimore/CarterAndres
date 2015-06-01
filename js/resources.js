@@ -4,6 +4,7 @@ game.resources = [
 	 * @example
 	 * {name: "example", type:"image", src: "data/img/example.png"},
 	 */
+        //all of my resourses
         {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
         {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
         {name: "player", type:"image", src: "data/img/hero.png"},
@@ -15,7 +16,7 @@ game.resources = [
         {name: "bullet", type: "image", src: "data/img/fireball.png"},
         {name: "gun", type: "image", src: "data/img/ak 47.png"},
         {name: "main-screen", type: "image", src: "data/img/cay.jpg"},
-        {name: "control-screen", type: "image", src: "data/img/title.png"},
+        {name: "control-screen", type: "image", src: "data/img/fen.jpg"},
         {name: "gold-screen", type: "image", src: "data/img/game_over.png"},
         
 
