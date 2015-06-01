@@ -13,6 +13,8 @@ game.resources = [
         {name: "new-screen", type: "image", src: "data/img/fire.jpg"},
         {name: "load-screen", type: "image", src: "data/img/zam_1.jpg"},
         {name: "city", type: "image", src: "data/img/city.jpg"},
+        {name: "bullet", type: "image", src: "data/img/fireball.png"},
+        {name: "gun", type: "image", src: "data/img/ak 47.png"},
         {name: "main-screen", type: "image", src: "data/img/cay.jpg"},
         {name: "control-screen", type: "image", src: "data/img/fen.jpg"},
         {name: "gold-screen", type: "image", src: "data/img/game_over.png"},

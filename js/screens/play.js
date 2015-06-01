@@ -12,9 +12,6 @@ game.PlayScreen = me.ScreenObject.extend({
 
         me.state.current().resetPlayer(0, 420);
 
-        game.data.player = me.pool.pull("player", x, y, {});
-        me.game.world.addChild(game.data.player, 10);
-
         var gamemanager = me.pool.pull("GameManager", 0, 0, {});
         me.game.world.addChild(gamemanager, 0);
 
@@ -23,6 +20,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
         //binding keys
         me.input.bindKey(me.input.KEY.B, "buy");
+        me.input.bindKey(me.input.KEY.A, "shoot");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.LEFT, "left");
